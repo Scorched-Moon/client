@@ -1,0 +1,5 @@
+Scorched Moon was developed by project tether:
+http://code.google.com/p/tether
+
+Primary Contributors to project tether are:
+Kevin Clement <Donkyhotay> (Project Maintainer, Lead Developer)
