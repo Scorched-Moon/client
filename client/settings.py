@@ -67,12 +67,10 @@ class Settings:
                 else:
                     logging.warning("unidentified input in settings file")
                     badsettings = True
-            
         else:
             badsettings = True
         if badsettings == True:
             pass #add code to reset back to default settings
-
 
     def save_settings(self):
         logging.debug("")
