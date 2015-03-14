@@ -1,5 +1,5 @@
 Project Tether: Scorched Moon
-http://code.google.com/p/tether/
+http://scorched-moon.github.io/site/
 
 
 REQUIREMENTS
