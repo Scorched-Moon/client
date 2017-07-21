@@ -40,27 +40,20 @@ class Network:
             cmd = self.server.read_until(b"\n", 30)
             cmd = cmd.decode("ascii")
             cmd = cmd[:-1]
-            if cmd == "hello":
+            if cmd == "Welcome to Scorched Moon":
                 logging.debug("server said hello")
                 cmd = self.server.read_until(b"\n", 30)
                 cmd = cmd.decode("ascii")
                 cmd = cmd[:-1]
                 cmd, version = cmd.split(" ", 1)
                 if cmd == "version":
-                    try:
-                        version = float(version)
-                    except ValueError as message:
-                        logging.warning("unable to identify server version: {} - disconnecting" .format(version))
-                        self.connected = "Unable to confirm server version"
+                    if version < minserverversion:
+                        logging.warning("Server is at version {} but client requires version {} or higher - disconnecting" .format(version, minserverversion))
+                        self.connected = "Server is at version {} but client requires version {} or higher" .format(version, minserverversion)
                         self.server.close()
                     else:
-                        if version < minserverversion:
-                            logging.warning("Server is at version {} but client requires version {} or higher - disconnecting" .format(version, minserverversion))
-                            self.connected = "Server is at version {} but client requires version {} or higher" .format(version, minserverversion)
-                            self.server.close()
-                        else:
-                            logging.info("successfully connected to server version {}" .format(version))
-                            self.connected = "True"
+                        logging.info("successfully connected to server version {}" .format(version))
+                        self.connected = "True"
                 else:
                     logging.warning("Server did not identify version after hello - disconnecting")
                     self.connected = "Unable to confirm server version"

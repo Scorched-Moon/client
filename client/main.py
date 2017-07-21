@@ -23,11 +23,11 @@ import platform
 import threading
 from time import sleep
 from . import gameclient
+from .moontools import Tools as tools
 
 class Main:
     def __init__(self, debug, loglevel, skip):
-        version = 0.102
-        stringversion = "0.10.2"
+        version = "0.10.4"
 
         #figuring out directory for logs, settings, and save files
         tetherdir = os.getenv("HOME")
@@ -53,7 +53,7 @@ class Main:
         for handler in logging.root.handlers[:]:
             logging.root.removeHandler(handler) # clears out handler to prepare for next logging session
 
-        logging.basicConfig(filename=logdir+'scorched_moon_client.log',level=logging.ERROR,format='%(levelname)s - %(asctime)s -- %(message)s') #default logging configuration until we can load custom settings
+        logging.basicConfig(filename=logdir+'scorched_moon_client.log',level=logging.WARNING,format='%(levelname)s - %(asctime)s -- %(message)s') #default logging configuration until we can load custom settings
 
         logging.critical("Initializing Scorched Moon Client")
 
@@ -68,7 +68,7 @@ class Main:
 
         self.client = gameclient.ClientState()
         self.client.settings.version = version
-        self.client.settings.stringversion = stringversion
+
         self.client.settings.tetherdir = tetherdir
         self.client.settings.load_settings()
 
@@ -103,10 +103,10 @@ class Main:
 
         # confirming startup status and logging
         if self.client.settings.debug:
-            logging.critical("Scorched Moon client ver. {} running in debug mode" .format(stringversion))
+            logging.critical("Scorched Moon client ver. {} running in debug mode" .format(version))
             logging.critical("Log level forced to {}" .format(loglevel))
         else:
-            logging.critical("Scorched Moon client ver. {}" .format(stringversion))
+            logging.critical("Scorched Moon client ver. {}" .format(version))
             logging.critical("Log level is set to {}" .format(loglevel))
         logging.critical("Platform: {}" .format(platform.platform()))
         logging.critical("Python version: {}" .format(sys.version))
@@ -122,7 +122,7 @@ class Main:
                 logging.warning("unable to open splash image")
                 skip = True
             if skip == False:
-                pygame.display.set_caption("Scorched Moon {}" .format(self.client.settings.stringversion))
+                pygame.display.set_caption("Scorched Moon {}" .format(self.client.settings.version))
                 splashScreen = splashScreen.convert()
                 screen.blit(splashScreen, (0,0))
                 pygame.display.flip()
@@ -139,7 +139,7 @@ class Main:
         if self.client.settings.username == "" or self.client.settings.username[:1] == " ": #user account popup
             self.getname()
 
-        pygame.display.set_caption("Scorched Moon ver. {}" .format(self.client.settings.stringversion))
+        pygame.display.set_caption("Scorched Moon ver. {}" .format(self.client.settings.version))
         while self.client.runclient: # main client loop
             self.client.display.desktop.loop()
             if self.client.network.buffer != "":

@@ -20,14 +20,14 @@ import logging
 import os, os.path
 import string
 import sys
+from .moontools import Tools as tools
 
 class Settings:
     def __init__(self):
         logging.debug("")
-        self.version = 0.00
-        self.stringversion = "0.00.0"
-        self.minsettingsversion = 1.01 #oldest version of scorched moon settings file is compatible with remember to update this number when any changes are made to the way settings.conf is read or written to
-        self.minserverversion = 0.037 #oldest version of scorched moon server the client is compatible with
+        self.version = "0.00.0"
+        self.minsettingsversion = "0.10.4" #oldest version of scorched moon settings file is compatible with remember to update this number when any changes are made to the way settings.conf is read or written to
+        self.minserverversion = "0.10.4" #oldest version of scorched moon server the client is compatible with
         self.debug = True
         self.tetherdir = None
         self.loglevel = 4
@@ -51,10 +51,10 @@ class Settings:
                     continue
                 input_array = line.split("=", 1)
                 if input_array[0].strip() == "version":
-                    if float(input_array[1].strip()) < self.minsettingsversion: #checking file version to avoid incompatibilities
-                        logging.info("Obsolete settings file detected Using defaults")
+                    fileversion = input_array[1].strip()
+                    if tools.checkversion(fileversion, self.minsettingsversion) == False:
+                        logging.warning("Obsolete settings file detected Using defaults")
                         badsettings = True
-
                 elif input_array[0].strip() == "debug":
                     if input_array[1].strip() == "True":
                         self.debug = True
