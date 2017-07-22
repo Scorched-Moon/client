@@ -28,6 +28,7 @@ class Tools:
         logging.debug("")
         majorversion1, minorversion1, revision1 = (int(temp) for temp in version1.split(".", 3))
         majorversion2, minorversion2, revision2 = (int(temp) for temp in version2.split(".", 3))
+
         if majorversion2 > majorversion1:
             return False
         elif minorversion2 > minorversion1:

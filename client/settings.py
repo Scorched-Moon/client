@@ -1,4 +1,4 @@
-"""Copyright 2015:
+"""Copyright 2017:
     Kevin Clement
 
 This program is free software; you can redistribute it and/or modify
@@ -55,6 +55,8 @@ class Settings:
                     if tools.checkversion(fileversion, self.minsettingsversion) == False:
                         logging.warning("Obsolete settings file detected Using defaults")
                         badsettings = True
+                    else:
+                        logging.debug("Valid settings file detected")
                 elif input_array[0].strip() == "debug":
                     if input_array[1].strip() == "True":
                         self.debug = True

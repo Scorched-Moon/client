@@ -1,4 +1,4 @@
-"""Copyright 2015:
+"""Copyright 2017:
     Kevin Clement
 
 This program is free software; you can redistribute it and/or modify
@@ -27,7 +27,7 @@ from .moontools import Tools as tools
 
 class Main:
     def __init__(self, debug, loglevel, skip):
-        version = "0.10.4"
+        version = "0.10.5"
 
         #figuring out directory for logs, settings, and save files
         tetherdir = os.getenv("HOME")

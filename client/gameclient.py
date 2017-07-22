@@ -1,4 +1,4 @@
-"""Copyright 2015:
+"""Copyright 2017:
     Kevin Clement
 
 This program is free software; you can redistribute it and/or modify
